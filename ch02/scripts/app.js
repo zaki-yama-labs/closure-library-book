@@ -1,4 +1,4 @@
-goog.privide('chapter2.App');
+goog.provide('chapter2.App');
 goog.require('goog.ui.HsvPalette');
 
 /** @constructor */
