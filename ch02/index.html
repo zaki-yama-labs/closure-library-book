@@ -10,10 +10,18 @@
   <script src="deps.js"></script>
 </head>
 <body>
-  <div id="palette"></div>
-  <!-- 背景色設定ボタン -->
-  <input type="button" value="背景色に設定" id="bgcolor-btn">
+  <div id="dragframe" style="width:402px; position:relative">
 
+    <!-- ドラッグ用のハンドル-->
+    <div id="handle" style="background-color: gray; color: white">
+      ここをドラッグ
+    </div>
+
+    <div id="palette"></div>
+
+    <!-- 背景色設定ボタン -->
+    <input type="button" value="背景色に設定" id="bgcolor-btn">
+  </div>
   <script type="text/javascript">
     goog.require('chapter2.App');
   </script>

@@ -1,5 +1,6 @@
 goog.provide('chapter2.App');
 goog.require('goog.ui.HsvPalette');
+goog.require('goog.fx.Dragger');
 
 /** @constructor */
 chapter2.App = function() {
@@ -13,6 +14,9 @@ chapter2.App = function() {
 chapter2.App.prototype.setBGColor = function() {
   document.body.style.backgroundColor = this.palette.getColor();
 }
+
+// ウィジェットをドラッグ可能にする
+new goog.fx.Dragger(document.getElementById('dragframe'), document.getElementById('handle'));
 
 // chapter2.App のインスタンスを作成
 new chapter2.App();
