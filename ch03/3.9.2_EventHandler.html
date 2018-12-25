@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3.9.2 EventHandler</title>
+  <script src="closure-library/closure/goog/base.js"></script>
+</head>
+<body>
+  <input type="button" value="ここをクリック！" id="button">
+  <input type="button" value="インスタンス削除" id="delete">
+
+  <script type="text/javascript">
+    goog.require('goog.dom');
+    goog.require('goog.events');
+    goog.require('goog.events.EventHandler');
+  </script>
+  <script type="text/javascript">
+    const Button = class extends goog.Disposable {
+
+      constructor() {
+        super();
+
+        this.eh_ = new goog.events.EventHandler(this);
+        this.eh_.listen(goog.dom.getElement('button'), goog.events.EventType.CLICK, this.onClick);
+        this.eh_.listen(goog.dom.getElement('delete'), goog.events.EventType.CLICK, this.onDelete);
+      }
+
+      disposeInternal() {
+        super.disposeInternal();
+        this.eh_.dispose();
+      }
+
+      onClick(e) {
+        alert('クリックしたね？');
+      }
+
+      onDelete(e){
+        this.dispose();
+      }
+    };
+
+    new Button();
+  </script>
+</body>
+</html>
