@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3.9.4 カスタムイベント</title>
+  <script src="closure-library/closure/goog/base.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    goog.require('goog.dom');
+    goog.require('goog.events');
+    goog.require('goog.events.EventTarget');
+  </script>
+  <script type="text/javascript">
+    class Timer extends goog.events.EventTarget {
+      constructor() {
+        super();
+        setInterval(() => {
+          this.dispatchEvent(Timer.EventType.TICK);
+        }, 1000);
+      }
+    }
+    Timer.EventType = {
+      TICK: 'timer-tick',
+    };
+
+    const timer = new Timer();
+    goog.events.listen(timer, Timer.EventType.TICK, (e) => {
+      const title = goog.dom.getElementsByTagNameAndClass('TITLE');
+      goog.dom.setTextContent(title[0], new Date());
+    });
+  </script>
+</body>
+</html>

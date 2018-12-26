@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3.9.3 KeyHandler</title>
+  <script src="closure-library/closure/goog/base.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    goog.require('goog.events');
+    goog.require('goog.events.KeyHandler');
+  </script>
+  <script type="text/javascript">
+    function handler(e) {
+      alert(['keyCode: ' + e.keyCode, 'charCode: ' + e.charCode].join('\n'));
+    }
+
+    const kh = new goog.events.KeyHandler(document);
+    goog.events.listen(kh, goog.events.KeyHandler.EventType.KEY, handler);
+  </script>
+</body>
+</html>
