@@ -14,4 +14,8 @@ python closure-library/closure/bin/build/closurebuilder.py \
   --compiler_jar=compiler.jar \
   --compiler_flags="--compilation_level=ADVANCED_OPTIMIZATIONS" \
   --compiler_flags="--jscomp_error=checkTypes" \
+  --compiler_flags="--jscomp_error=missingRequire" \
+  --compiler_flags="--jscomp_error=missingProvide" \
+  --compiler_flags="--language_in=ECMASCRIPT_2017" \
+  --compiler_flags="--language_out=ECMASCRIPT5" \
   --output_file=script.js
