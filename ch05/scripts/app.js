@@ -5,7 +5,6 @@ goog.require('goog.ds.DataManager');
 goog.require('goog.ds.JsDataSource');
 goog.require('goog.dom.ViewportSizeMonitor');
 goog.require('goog.math.Size');
-goog.require('goog.ui.Component');
 goog.require('goog.ui.SplitPane');
 
 goog.require('tinyword.LeftPane');
