@@ -11,3 +11,13 @@ body { overflow: hidden; margin: 4px; }
   padding-bottom: 20px;
   font-style: italic;
 }
+
+.goog-splitpane-first-container {
+  border: 1px solid #6b90da;
+}
+.goog-splitpane-handle {
+  background: #ccc;
+  cursor: col-resize;
+  border: solid 1px white;
+  border-style: none solid;
+}
