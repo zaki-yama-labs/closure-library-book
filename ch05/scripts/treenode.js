@@ -1,7 +1,6 @@
 goog.provide('tinyword.TreeNode');
 
 goog.require('goog.string');
-goog.require('goog.functions');
 goog.require('goog.ui.tree.TreeNode');
 
 tinyword.TreeNode = class extends goog.ui.tree.TreeNode {
@@ -9,7 +8,7 @@ tinyword.TreeNode = class extends goog.ui.tree.TreeNode {
    * @param {string} name
    * @param {string} type
    * @param {string} dsPath
-   * @param {object} opt_config
+   * @param {Object} opt_config
    * @param {goog.dom.DomHelper} opt_domHelper
    */
   constructor(name, type, dsPath, opt_config, opt_domHelper) {

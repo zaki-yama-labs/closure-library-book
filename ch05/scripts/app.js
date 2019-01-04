@@ -13,6 +13,15 @@ goog.require('tinyword.RightPane');
 /** @constructor */
 tinyword.App = class {
   constructor() {
+    this.initialize_(tinyword.App.dummyData_);
+  }
+
+  // アプリケーションを初期化
+  initialize_(tree) {
+    // ファイルツリーを初期化
+    const dm = goog.ds.DataManager.getInstance();
+    dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
+
     // イベントハンドラを管理するためのEventHandlerを生成
     /**
      * @private
@@ -46,15 +55,6 @@ tinyword.App = class {
      * @type {goog.dom.ViewportSizeMonitor}
      */
     this.viewportSizeMonitor_ = new goog.dom.ViewportSizeMonitor();
-
-    this.initialize_(tinyword.App.dummyData_);
-  }
-
-  // アプリケーションを初期化
-  initialize_(tree) {
-    // ファイルツリーを初期化
-    const dm = goog.ds.DataManager.getInstance();
-    dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
 
     this.splitPane_.setInitialSize(200);
     this.splitPane_.render(goog.dom.getElement('main'));
