@@ -41,6 +41,19 @@ tinyword.TreeControl = class extends goog.ui.tree.TreeControl {
      * @type {boolean | undefined}
      */
     this.folderOnly_ = opt_folderOnly;
+
+    /**
+     * @private
+     * @type {Function}
+     */
+    this.callback_ = goog.bind(this.onTreeChanged_, this);
+    dm.addListener(this.callback_, `${this.dsPath_}/...`);
+  }
+
+  /** @override */
+  disposeInternal() {
+    goog.ds.DataManager.getInstance().removeListeners(this.callback_);
+    super.disposeInternal();
   }
 
   isRootNode() {
@@ -96,5 +109,35 @@ tinyword.TreeControl = class extends goog.ui.tree.TreeControl {
       text, type, path, this.getConfig(), this.getDomHelper());
     this.nodes_[path] = node;
     return node;
+  }
+
+  /**
+   * @private
+   * @param {string} dataPath_ datasource path
+   */
+  onTreeChanged_(dataPath_) {
+    const dataPath = dataPath_.replace(/\/[#@][^\/]+$/g, '');
+    const expr = goog.ds.Expr.create(dataPath);
+    const dataNode = expr.getNode();
+    const treeNode = this.nodes_[dataPath];
+    if (dataNode) {
+      if (treeNode) {
+        // 名前変更
+        treeNode.setText(dataNode.getChildNodeValue('#text') || '');
+      } else if (!this.folderOnly_ || dataNode.getChildNodeValue('@type') === 'folder') {
+        // 新規ノードの追加
+        const parent = this.nodes_[expr.getParent().getParent().getSource()];
+        if (parent) {
+          parent.add(this.createNode_(dataNode));
+        }
+      }
+    } else if (treeNode) {
+      // ノードの削除
+      const parent = this.nodes_[expr.getParent().getParent().getSource()];
+      if (parent) {
+        parent.removeChild(treeNode);
+        delete this.nodes_[dataPath];
+      }
+    }
   }
 }
