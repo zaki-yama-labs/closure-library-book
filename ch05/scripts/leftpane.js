@@ -8,6 +8,8 @@ goog.require('goog.ui.Menu');
 goog.require('goog.ui.MenuItem');
 goog.require('goog.array');
 
+goog.require('tinyword.TreeControl');
+
 tinyword.LeftPane = class extends goog.ui.Component {
 
   /**
@@ -25,6 +27,13 @@ tinyword.LeftPane = class extends goog.ui.Component {
       goog.ui.Container.Orientation.HORIZONTAL,
       opt_domHelper);
     this.addChild(this.toolbar_);
+
+    /**
+     * @private
+     * @type {tinyword.TreeControl}
+     */
+    this.treeControl_ = new tinyword.TreeControl(false, opt_domHelper);
+    this.addChild(this.treeControl_);
   }
 
   /** @override */
@@ -61,6 +70,15 @@ tinyword.LeftPane = class extends goog.ui.Component {
     const fileBtn = new goog.ui.ToolbarMenuButton(
       'ファイル', fileMenu, goog.ui.ToolbarMenuButtonRenderer.getInstance(), dom);
     this.toolbar_.addChild(fileBtn, true);
+
+    let treeEl = dom.getElementsByTagNameAndClass(
+      'div', tinyword.LeftPane.TREE_CLASS_NAME_)[0];
+    if (!treeEl) {
+      treeEl = dom.createDom('div', tinyword.LeftPane.TREE_CLASS_NAME_);
+      dom.appendChild(element, treeEl);
+    }
+    this.treeControl_.createDom();
+    dom.appendChild(treeEl, this.treeControl_.getElement());
   }
 
   /** @override */
@@ -76,11 +94,11 @@ tinyword.LeftPane = class extends goog.ui.Component {
     handler.listen(
       this.toolbar_,
       goog.ui.Component.EventType.ACTION,
-      tis.onSelectMenuItem_);
+      this.onSelectMenuItem_);
     handler.listen(
       this.toolbar_,
       goog.ui.Menu.EventType.SHOW,
-      tis.onShowMenu_);
+      this.onShowMenu_);
   }
 
   /** @override */
@@ -126,3 +144,4 @@ tinyword.LeftPane = class extends goog.ui.Component {
   onShowMenu_(e) {}
 }
 tinyword.LeftPane.CLASS_NAME_ = goog.getCssName('leftpane');
+tinyword.LeftPane.TREE_CLASS_NAME_ = goog.getCssName(tinyword.LeftPane.CLASS_NAME_, 'tree');

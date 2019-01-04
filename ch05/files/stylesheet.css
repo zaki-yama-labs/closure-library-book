@@ -5,6 +5,7 @@
 @import "../closure-library/closure/goog/css/menuitem.css";
 @import "../closure-library/closure/goog/css/menuseparator.css";
 @import "../closure-library/closure/goog/css/toolbar.css";
+@import "../closure-library/closure/goog/css/tree.css";
 
 /* ページスクロールバー非表示 */
 html { overflow: hidden; }
@@ -26,4 +27,15 @@ body { overflow: hidden; margin: 4px; }
   cursor: col-resize;
   border: solid 1px white;
   border-style: none solid;
+}
+
+.leftpane-tree {
+  overflow: auto;
+}
+.goog-tree-root {
+  margin: 4px;
+}
+/* Opera で表示したときに選択されたアイテムの強調表示が行われない問題への対処 */
+.selected .goog-tree-item-label {
+  background-color: rgb(192, 192, 192);
 }
