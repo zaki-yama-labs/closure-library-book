@@ -1,4 +1,10 @@
 @import "../closure-library/closure/goog/css/common.css";
+@import "../closure-library/closure/goog/css/button.css";
+@import "../closure-library/closure/goog/css/menu.css";
+@import "../closure-library/closure/goog/css/menubutton.css";
+@import "../closure-library/closure/goog/css/menuitem.css";
+@import "../closure-library/closure/goog/css/menuseparator.css";
+@import "../closure-library/closure/goog/css/toolbar.css";
 
 /* ページスクロールバー非表示 */
 html { overflow: hidden; }
