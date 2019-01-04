@@ -8,6 +8,9 @@ goog.require('goog.math.Size');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.SplitPane');
 
+goog.require('tinyword.LeftPane');
+goog.require('tinyword.RightPane');
+
 /** @constructor */
 tinyword.App = class {
   constructor() {
@@ -20,11 +23,22 @@ tinyword.App = class {
 
     /**
      * @private
+     * @type {tinyword.LeftPane}
+     */
+    this.leftPane_ = new tinyword.LeftPane();
+
+    /**
+     * @private
+     * @type {tinyword.RightPane}
+     */
+    this.rightPane_ = new tinyword.RightPane();
+
+    /**
+     * @private
      * @type {goog.ui.SplitPane}
      */
     this.splitPane_ = new goog.ui.SplitPane(
-      new goog.ui.Component(),
-      new goog.ui.Component(),
+      this.leftPane_, this.rightPane_,
       goog.ui.SplitPane.Orientation.HORIZONTAL
     );
 

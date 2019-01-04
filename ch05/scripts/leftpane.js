@@ -5,6 +5,9 @@ goog.require('goog.ui.Component');
 
 tinyword.LeftPane = class extends goog.ui.Component {
 
+  /**
+   * @param {goog.dom.DomHelper=} opt_domHelper
+   */
   constructor(opt_domHelper) {
     super(opt_domHelper);
   }
