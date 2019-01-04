@@ -71,6 +71,16 @@ tinyword.LeftPane = class extends goog.ui.Component {
   /** @override */
   enterDocument() {
     super.enterDocument();
+
+    const handler = this.getHandler();
+    handler.listen(
+      this.toolbar_,
+      goog.ui.Component.EventType.ACTION,
+      tis.onSelectMenuItem_);
+    handler.listen(
+      this.toolbar_,
+      goog.ui.Menu.EventType.SHOW,
+      tis.onShowMenu_);
   }
 
   /** @override */
@@ -92,5 +102,27 @@ tinyword.LeftPane = class extends goog.ui.Component {
       menu.addChild(item, true);
     });
   }
+
+  onSelectMenuItem_(e) {
+    switch (e.target.getId()) {
+      case 'newfolder':
+        this.onNewFolder_(e);
+        break;
+      case 'rename':
+        this.onRename_(e);
+        break;
+      case 'delete':
+        this.onDelete_(e);
+        break;
+    }
+  }
+
+  onNewFolder_(e) {}
+
+  onRename_(e) {}
+
+  onDelete_(e) {}
+
+  onShowMenu_(e) {}
 }
 tinyword.LeftPane.CLASS_NAME_ = goog.getCssName('leftpane');
