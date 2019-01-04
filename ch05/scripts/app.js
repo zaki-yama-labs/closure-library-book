@@ -43,13 +43,13 @@ tinyword.App = class {
     const dm = goog.ds.DataManager.getInstance();
     dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
 
+    this.splitPane_.setInitialSize(200);
+    this.splitPane_.render(goog.dom.getElement('main'));
+
     this.eventHandler_.listen(this.viewportSizeMonitor_,
       goog.events.EventType.RESIZE,
       this.onResizeViewport_);
     this.onResizeViewport_();
-
-    this.splitPane_.setInitialSize(200);
-    this.splitPane_.render(goog.dom.getElement('main'));
   }
 
   onResizeViewport_() {
