@@ -53,6 +53,14 @@ tinyword.LeftPane = class extends goog.ui.Component {
       dom.appendChild(element, toolbarEl);
     }
     this.toolbar_.decorate(toolbarEl);
+
+    const fileMenu = new goog.ui.Menu(dom);
+    fileMenu.setId('toolbar-file-menu');
+    this.buildItemsForFileMenu_(fileMenu);
+
+    const fileBtn = new goog.ui.ToolbarMenuButton(
+      'ファイル', fileMenu, goog.ui.ToolbarMenuButtonRenderer.getInstance(), dom);
+    this.toolbar_.addChild(fileBtn, true);
   }
 
   /** @override */
@@ -68,6 +76,21 @@ tinyword.LeftPane = class extends goog.ui.Component {
   /** @override */
   exitDocument(){
     super.exitDocument();
+  }
+
+  buildItemsForFileMenu_(menu) {
+    const data = [
+      ['newfolder', '新規フォルダ'],
+      ['rename', '名前変更'],
+      ['delete', '削除'],
+    ];
+
+    const dom = this.getDomHelper();
+    data.forEach(entry => {
+      const item = new goog.ui.MenuItem(entry[1], null, dom);
+      item.setId(entry[0]);
+      menu.addChild(item, true);
+    });
   }
 }
 tinyword.LeftPane.CLASS_NAME_ = goog.getCssName('leftpane');
