@@ -3,6 +3,8 @@ goog.provide('tinyword.App');
 goog.require('goog.events.EventHandler');
 goog.require('goog.ds.DataManager');
 goog.require('goog.ds.JsDataSource');
+goog.require('goog.dom.ViewportSizeMonitor');
+goog.require('goog.math.Size');
 goog.require('goog.ui.Component');
 goog.require('goog.ui.SplitPane');
 
@@ -26,6 +28,12 @@ tinyword.App = class {
       goog.ui.SplitPane.Orientation.HORIZONTAL
     );
 
+    /**
+     * @private
+     * @type {goog.dom.ViewportSizeMonitor}
+     */
+    this.viewportSizeMonitor_ = new goog.dom.ViewportSizeMonitor();
+
     this.initialize_(tinyword.App.dummyData_);
   }
 
@@ -35,8 +43,20 @@ tinyword.App = class {
     const dm = goog.ds.DataManager.getInstance();
     dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
 
+    this.eventHandler_.listen(this.viewportSizeMonitor_,
+      goog.events.EventType.RESIZE,
+      this.onResizeViewport_);
+    this.onResizeViewport_();
+
     this.splitPane_.setInitialSize(200);
     this.splitPane_.render(goog.dom.getElement('main'));
+  }
+
+  onResizeViewport_() {
+    const size = this.viewportSizeMonitor_.getSize();
+    const titleSize = goog.style.getBorderBoxSize(goog.dom.getElement('title'));
+    this.splitPane_.setSize(new goog.math.Size(
+      size.width - 4*2, size.height - 4*2 - titleSize.height));
   }
 };
 goog.addSingletonGetter(tinyword.App);
