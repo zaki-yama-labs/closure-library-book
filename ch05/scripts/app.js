@@ -4,6 +4,7 @@ goog.require('goog.events.EventHandler');
 goog.require('goog.ds.DataManager');
 goog.require('goog.ds.JsDataSource');
 goog.require('goog.ui.Component');
+goog.require('goog.ui.SplitPane');
 
 /** @constructor */
 tinyword.App = class {
@@ -15,6 +16,16 @@ tinyword.App = class {
      */
     this.eventHandler_ = new goog.events.EventHandler(this);
 
+    /**
+     * @private
+     * @type {goog.ui.SplitPane}
+     */
+    this.splitPane_ = new goog.ui.SplitPane(
+      new goog.ui.Component(),
+      new goog.ui.Component(),
+      goog.ui.SplitPane.Orientation.HORIZONTAL
+    );
+
     this.initialize_(tinyword.App.dummyData_);
   }
 
@@ -23,6 +34,9 @@ tinyword.App = class {
     // ファイルツリーを初期化
     const dm = goog.ds.DataManager.getInstance();
     dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
+
+    this.splitPane_.setInitialSize(200);
+    this.splitPane_.render(goog.dom.getElement('main'));
   }
 };
 goog.addSingletonGetter(tinyword.App);
