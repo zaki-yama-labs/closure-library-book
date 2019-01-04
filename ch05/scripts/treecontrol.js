@@ -16,4 +16,16 @@ tinyword.TreeControl = class extends goog.ui.tree.TreeControl {
 
     this.opt_folderOnly_ = opt_folderOnly;
   }
+
+  isRootNode() {
+    return true;
+  }
+
+  getDataSourcePath() {
+    return this.dsPath_;
+  }
+
+  getFileType() {
+    return 'folder';
+  }
 }
