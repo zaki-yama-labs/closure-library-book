@@ -3,18 +3,23 @@ goog.provide('tinyword.App');
 goog.require('goog.events.EventHandler');
 goog.require('goog.ds.DataManager');
 goog.require('goog.ds.JsDataSource');
+goog.require('goog.ui.Component');
 
 /** @constructor */
 tinyword.App = class {
   constructor() {
+    // イベントハンドラを管理するためのEventHandlerを生成
+    /**
+     * @private
+     * @type {goog.events.EventHandler}
+     */
+    this.eventHandler_ = new goog.events.EventHandler(this);
+
     this.initialize_(tinyword.App.dummyData_);
   }
 
   // アプリケーションを初期化
   initialize_(tree) {
-    // イベントハンドラを管理するためのEventHandlerを生成
-    this.eventHandler_ = new goog.events.EventHandler(this);
-
     // ファイルツリーを初期化
     const dm = goog.ds.DataManager.getInstance();
     dm.addDataSource(new goog.ds.JsDataSource(tree, tinyword.App.DS_ROOT), true);
