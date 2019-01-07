@@ -134,13 +134,53 @@ tinyword.LeftPane = class extends goog.ui.Component {
     }
   }
 
-  onNewFolder_(e) {}
+  onNewFolder_(e) {
+    const treeNode = this.treeControl_.getSelectedItem();
+    if (treeNode && treeNode.getFileType() === 'folder') {
+      const parentPath = treeNode.getDataSourcePath();
+      const parentNode = goog.ds.Expr.create(parentPath).getNode();
+      const entryNode = parentNode && parentNode.getChildNode('entry', true);
+      entryNode.setChildNode(
+        `f${Math.random()}`, { '#text':'新規フォルダ', '@type': 'folder' }
+      );
+    }
+  }
 
-  onRename_(e) {}
+  onRename_(e) {
+    const treeNode = this.treeControl_.getSelectedItem();
+    if (treeNode && !treeNode.isRootNode()) {
+      const path = treeNode.getDataSourcePath();
+      const node = goog.ds.Expr.create(path).getNode();
+      let name = node.getChildNodeValue('#text');
+      if (name = window.prompt('新しい名前を指定してください。', name)) {
+        node.setChildNode('#text', name);
+      }
+    }
+  }
 
-  onDelete_(e) {}
+  onDelete_(e) {
+    const treeNode = this.treeControl_.getSelectedItem();
+    if (treeNode && !treeNode.hasChildren() && !treeNode.isRootNode()) {
+      const expr = goog.ds.Expr.create(treeNode.getDataSourcePath());
+      const node = expr.getNode();
+      const parent = expr.getParent().getNode();
+      if (node && parent) {
+        parent.setChildNode(node.getDataName(), null);
+      }
+    }
 
-  onShowMenu_(e) {}
+  }
+
+  onShowMenu_(e) {
+    const menu = e.target;
+    if (/-file-menu$/.test(menu.getId())) {
+      const node = this.treeControl_.getSelectedItem();
+      const sub = node && !node.isRootNode();
+      menu.getChild('newfolder').setEnabled(node && node.getFileType() === 'folder');
+      menu.getChild('rename').setEnabled(sub);
+      menu.getChild('delete').setEnabled(sub && !node.hasChildren());
+    }
+  }
 }
 tinyword.LeftPane.CLASS_NAME_ = goog.getCssName('leftpane');
 tinyword.LeftPane.TREE_CLASS_NAME_ = goog.getCssName(tinyword.LeftPane.CLASS_NAME_, 'tree');
