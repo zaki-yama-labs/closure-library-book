@@ -100,6 +100,12 @@ tinyword.LeftPane = class extends goog.ui.Component {
       this.onShowMenu_);
   }
 
+  resize(size) {
+    const toolbarSize = goog.style.getBorderBoxSize(this.toolbar_.getElement());
+    const treeSize = Math.max(size.height - toolbarSize.height - 2, 0);
+    goog.style.setStyle(this.treeControl_.getElement().parentNode, 'height', treeSize +'px');
+  }
+
   /** @override */
   exitDocument(){
     super.exitDocument();
