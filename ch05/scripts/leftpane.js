@@ -111,6 +111,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
     super.exitDocument();
   }
 
+  /** @private */
   buildItemsForFileMenu_(menu) {
     const data = [
       ['newfolder', '新規フォルダ'],
@@ -126,6 +127,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
     });
   }
 
+  /** @private */
   onSelectMenuItem_(e) {
     switch (e.target.getId()) {
       case 'newfolder':
@@ -140,6 +142,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
     }
   }
 
+  /** @private */
   onNewFolder_(e) {
     const treeNode = this.treeControl_.getSelectedItem();
     if (treeNode && treeNode.getFileType() === 'folder') {
@@ -152,6 +155,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
     }
   }
 
+  /** @private */
   onRename_(e) {
     const treeNode = this.treeControl_.getSelectedItem();
     if (treeNode && !treeNode.isRootNode()) {
@@ -164,6 +168,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
     }
   }
 
+  /** @private */
   onDelete_(e) {
     const treeNode = this.treeControl_.getSelectedItem();
     if (treeNode && !treeNode.hasChildren() && !treeNode.isRootNode()) {
@@ -177,6 +182,7 @@ tinyword.LeftPane = class extends goog.ui.Component {
 
   }
 
+  /** @private */
   onShowMenu_(e) {
     const menu = e.target;
     if (/-file-menu$/.test(menu.getId())) {
